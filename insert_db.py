@@ -27,6 +27,13 @@ def insert_dht11(conn, data):
     conn.commit()
     #return cur.lastrowid #cursors function that returns ID of row 
 
+def select_data(conn):
+    select_latest= ''' SELECT * FROM dht11 ORDER BY timestamp DESC LIMIT 1 '''
+    cur = conn.cursor()
+    for row in cur.execute(select_latest):
+        print (str(row[0])+"   Temp = "+str(row[1])+"	Hum ="+str(row[2]))
+    
+    
 def main():
     database = r"/home/pi/Databases/db/sensors.db"
 	# create a database connection
@@ -41,9 +48,10 @@ def main():
     if conn is not None:
         # create dht11 table
         create_table(conn, sql_create_dht11_table)
-	#insert data into row
-	data = (datetime.datetime.now(), 20.5,30)
-	insert_dht11(conn,data)
+        #insert data into row
+        data = (datetime.datetime.now(), 20.7,35)
+        insert_dht11(conn,data)
+        select_data(conn)
 
     else:
         print("Error! cannot create the database connection.")
