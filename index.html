@@ -4,14 +4,53 @@
 <title> William's Room </title>
 <link rel="stylesheet" href='../static/style.css'/>
 <meta http-equiv = "refresh" content = "60"> 
+<style>
+	body {
+	    text-align: center;
+	}
+	#g1,
+	#g2 {
+	    width: 200px;
+	    height: 160px;
+	    display: inline-block;
+	    margin: 1em;
+	}
+   </style>
 </head>
 
 <body>
 <h1> Room Data: </h1>
 <p> Below you will find the humidity and temperature of William's Room!</p>
-
-<h3> Temperature:  {{temp}} °F</h3>
-<h3> Relative Humidity  {{humid}} %</h3>
+<div id="g1"></div>
+<div id="g2"></div>
+<script src="../static/raphael-2.1.4.min.js"></script>
+    <script src="../static/justgage.js"></script>
+    <script>
+	var g1, g2;
+	document.addEventListener("DOMContentLoaded", function(event) {
+	    g1 = new JustGage({
+		id: "g1",
+		value: {{temp}},
+		valueFontColor: "yellow",
+		min: 0,
+		max: 120,
+		title: "Temperature",
+		label: "Farenheit"
+	});
+	    g2 = new JustGage({
+		id: "g2",
+		value: {{humid}},
+		valueFontColor: "yellow",
+		min: 0,
+		max: 100,
+		title: "Humidity",
+		label: "%"
+	});
+      });
+    </script>
 <h4> Last Recorded: {{time}}</h4>
+
+
 </body>
 </html>
+
